@@ -69,3 +69,60 @@ function arraysEqual(arr1, arr2){
 
     return true;
 }
+
+//Binary Search - O(log n) time complexity
+//Question prompts us with an array and a value we're meant to find within it
+//Array is sorted in ascending order
+//Binary search is a divide and conquer algo that works by dividing the array in half and checking if the value is greater than or less than the middle value
+function binarySearch(arr, target){
+    //Setting up our pointers similar to the reverse array function - like two pointers
+    let left = 0;
+    let right = arr.length - 1;
+
+    while(left <= right){
+        //Finding the middle index of the array
+        let mid = Math.floor((left + right) / 2);
+
+        if(arr[mid] == target){
+            return mid;
+        }
+        else if(arr[mid] < target){
+            //We move the left pointer to the right of the middle index because we know at this point the target value is greater than the middle value
+            left = mid + 1;
+        }
+        else{
+            //We're moving the right pointer to the left of the mid index because we know at this point the target value is less than the middle value
+            right = mid -1;
+        }
+    }
+    //We return -1 if the value isnt found within the array
+    return -1;
+}
+
+//PRODUCT OF ARRAY EXCEPT SELF
+//Another common one where we're asked to find the product of all elements in an array except for the current index
+function productExceptSelf(arr){
+    let n = arr.length;
+    //We create a new output array and fill it with 1s so we can easily multiply all values 
+    let outputArray = new Array(n).fill(1);
+
+    //CALCULATING LEFT PRODUCTS - looping through and calculating product for all variables left of the curent index
+    let leftProduct = 1;
+    for(let i = 0; i < n; i++){
+        //Setting the current index of the output array to the left product value
+        outputArray[i] = leftProduct;
+        //Then we iteratively update the product value by multiplying it with the current index of the input array
+        leftProduct *= arr[i];
+    }
+
+    //CALCULATING RIGHT PRODUCTS - Same as before just with the right side
+    let rightProduct = 1;
+    for(let i = n -1; i >= 0; i--){
+        //Multiplying the current index of the output array with the right product value
+        outputArray[i] *= rightProduct;
+        //Same update as seen before with the left product just with the right product
+        rightProduct *= arr[i];
+    }
+
+    return outputArray;
+}
