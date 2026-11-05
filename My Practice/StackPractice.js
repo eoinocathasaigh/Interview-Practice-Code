@@ -36,11 +36,11 @@ function isParenthesesBalanced(str){
 //When we need to explore all possible paths
 //When we need to find a path to a specific node
 //When we need to find the shortest path in an unweighted graph
-function dfsRec(adj, visited, s, res){
-    visited[s] = true;
-    res.push(s);
+function dfsRec(adj, visited, src, res){
+    visited[src] = true;
+    res.push(src);
 
-    for(let neighbor of adj[s]){
+    for(let neighbor of adj[src]){
         if(!visited[neighbor]){
             dfsRec(adj, visited, neighbor, res);
         }
