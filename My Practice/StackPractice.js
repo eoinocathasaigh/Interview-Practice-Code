@@ -31,3 +31,25 @@ function isParenthesesBalanced(str){
     return stack.length == 0;
 }
 
+//DFS
+//WHEN TO USE DFS?
+//When we need to explore all possible paths
+//When we need to find a path to a specific node
+//When we need to find the shortest path in an unweighted graph
+function dfsRec(adj, visited, s, res){
+    visited[s] = true;
+    res.push(s);
+
+    for(let neighbor of adj[s]){
+        if(!visited[neighbor]){
+            dfsRec(adj, visited, neighbor, res);
+        }
+    }
+}
+
+function dfs(adj){
+    const visited = new Array(adj.length).fill(false);
+    const res = [];
+    dfsRec(adj, visited, 0, res);
+    return res;
+}
