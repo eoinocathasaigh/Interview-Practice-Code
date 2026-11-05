@@ -70,3 +70,30 @@ function firstNonRepeatingChar(str){
 
     return null;
 }
+
+//FINDING THE MOST FREQUENT ELEMENT IN AN ARRAY
+function mostFrequentElement(arr){
+    //Defining a new map to hold elements we've seen so far
+    let freqMap = {};
+    let maxFreq = 0;
+    let mostFreqElement = null;
+
+    //Looping through the array of values
+    for(let i = 0; i < arr.length; i++){
+        //If the element is not in the map, we add it with a value of 1
+        if(!freqMap[arr[i]]){
+            freqMap[arr[i]] = 1;
+        } else {
+            //Otherwise we increment the value by 1
+            freqMap[arr[i]]++;
+        }
+
+        //Checking if the current element's frequency is greater than the max frequency found so far
+        if(freqMap[arr[i]] > maxFreq){
+            maxFreq = freqMap[arr[i]];
+            mostFreqElement = arr[i];
+        }
+    }
+
+    return mostFreqElement;
+}
