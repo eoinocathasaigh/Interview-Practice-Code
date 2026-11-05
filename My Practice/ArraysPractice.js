@@ -126,3 +126,27 @@ function productExceptSelf(arr){
 
     return outputArray;
 }
+
+//FINDING SECOND LARGEST ELEMENT IN AN ARRAY
+function secondLargest(arr){
+    //Error handling
+    if(arr.length < 2){
+        return null;
+    }
+
+    const n = arr.length;
+    let largest = -1;
+    let secondLargest = -1;
+
+    //Initializing the loop to find the largest and second largest elements in the array
+    for(let i = 0; i < n; i++){
+        if(arr[i] > largest){
+            secondLargest = largest;
+            largest = arr[i];
+        }
+        else if(arr[i] > secondLargest && arr[i] != largest){
+            secondLargest = arr[i];
+        }
+    }
+    return secondLargest;
+}
