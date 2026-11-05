@@ -150,3 +150,45 @@ function secondLargest(arr){
     }
     return secondLargest;
 }
+
+//CHECKING PALINDROME - TWO POINTERS
+function isPalindromeTwoPoint(string){
+    let left = 0;
+    let right = string.length - 1;
+
+    //Continue to loop while the pointers arent crossed
+    while(left < right){
+        if(string[left] != string[right]){
+            return false;
+        }
+
+        //Move the pointers
+        left++;
+        right--;
+    }
+
+    //If we reach this point then no mismatch has been found so we return true
+    return true;
+}
+
+//PALINDROME - RECURSION 
+//This method of approaching the palindrome problem just using recursion
+function isPalindromeUtil(string, left, right){
+    if(left >= right)
+        return true;
+
+    //If characters at the current positions arent equal then return false
+    if(string[left] != string[right]){
+        return false
+    }
+
+    //If not then move the pointers slightly 
+    return isPalindromeUtil(string, left+ 1, right -1);
+}
+
+// Function to check if a string is a palindrome
+function isPalindrome(s) {
+    let left = 0;
+    let right = s.length - 1;
+    return isPalindromeUtil(s, left, right);
+}
