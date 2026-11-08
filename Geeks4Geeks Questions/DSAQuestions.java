@@ -73,6 +73,7 @@ class GeeksStudyQuestions{
         //We will use a dynamic programming approach to solve this problem
         //We will create a 2D array to store the maximum value that can be obtained for each weight and item combination
         int n = val.length;
+        //Both the row and the column of the dp array are +1 because we want to include the 0th row and 0th column to represent the base case of no items and no capacity
         int[][] dp = new int[n + 1][W + 1];
 
         //Build the dp array`
@@ -107,5 +108,29 @@ class GeeksStudyQuestions{
         }
 
         System.out.println("Maximum value in Knapsack = " + dp[n][W]);
+    }
+
+    //1.3 Optimized DP knapsack for Space complexity
+    /**
+     * This approach is similar to the one above, with one major exception
+     * The space needed to compute the current row of DP values can be majorly reduced. 
+     * To compute the current row of the dp[] array, we only need values from the previous row. 
+     * Therefore, instead of maintaining the entire 2D dp table, we can optimize space by using just a single 1D array.
+     * By traversing the array from right to left we ensure that previously written values are not overwritten before they're used
+     */
+    public void knapsackProblemDPOP(int[] val, int[] wt, int W){
+        //Initializing DP array again
+        int[] dp = new int[W + 1]
+
+        //Looping for the first i elements
+        for(int i = 1; i <= val.length; i++){
+            //Secondary loop, starting at the end of the array and moving backwards
+            for(int j = W; j >= wt[i - 1]; j--){
+                dp[j] = Math.max(dp[j], dp[j - wt[i - 1] + val[i - 1]]);
+            }
+        }
+
+        //Ultimately returning the resulting total value
+        return dp[W];
     }
 }
