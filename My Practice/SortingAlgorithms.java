@@ -231,4 +231,101 @@ class SortingAlgorithms {
         }
     }
 
+    //MERGE SORT
+    /**
+     * Known for efficiency and stability - using divide and conquer approach
+     * Works by recursively splitting the array into two halves, sorting them and then merging them back together
+     * 
+     * 1. DIVIDE: Divide the list or array recursively into two halves until it can no more be divided
+     * 2. CONQUER: Each subarray is sorted individually using the merge sort algorithm
+     * 3. The sorted subarrays are merged back together in sorted order. The process continues until all elements from both subarrays have been merged
+     * 
+     * Time Complexity:
+     * Best Case: O(n log n), When the array is already sorted or nearly sorted.
+     * Average Case: O(n log n), When the array is randomly ordered.
+     * Worst Case: O(n log n), When the array is sorted in reverse order.
+     * 
+     * Applications
+     * Sorting LinkedLists
+     * Can solve problems like the intersection of 2 arrays
+     * 
+     * Adv
+     * Stable, and maintains sorting order
+     * Guaranteed worst-case performance: Merge sort has a worst-case time complexity of O(N logN) , which means it performs well even on large datasets
+     * Simple to implement
+     * 
+     * Disadv
+     * Slower than QuickSort in general as QuickSort is more cache friendly because it works in-place
+     */
+
+    public void mergeSort(int arr[], int l, int r) {
+        // code here
+        if(l < r){
+            //Finding the middle point
+            int m = l + (r - l) / 2;
+            
+            mergeSort(arr, l, m);
+            mergeSort(arr, m + 1, r);
+            
+            //Merge the 2 halves back together
+            merge(arr, l, m, r);
+        }
+    }
+    
+    // Merges two subarrays of arr[].
+    // First subarray is arr[l..m]
+    // Second subarray is arr[m+1..r]
+    public void merge(int[] arr, int l, int m, int r){
+        
+        //Find the sizes of the 2 subarrays needed
+        int size1 = m - l + 1;
+        int size2 = r - m;
+        
+        //Creating the new temp arrays
+        int L[] = new int[size1];
+        int R[] = new int[size2];
+        
+        //Copy the data into the arrays
+        for(int i = 0; i < size1; i++){
+            L[i] = arr[l + i];
+        }
+        for(int j = 0; j < size2; j++){
+            R[j] = arr[m + 1 + j];
+        }
+        
+        //Merging the Temp arrays back together
+        
+        //Initial indices of the first and second sub arrays
+        int i = 0, j = 0;
+        
+        //Initial index of the merged subarray
+        int k = l;
+        
+        while(i < size1 && j < size2){
+            if(L[i] < R[j]){
+                arr[k] = L[i];
+                i++;
+            }
+            else{
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+        
+        //Copy remaining elements of L if any
+        while(i < size1){
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+        
+        while(j < size2){
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+        
+    }
+
 }
