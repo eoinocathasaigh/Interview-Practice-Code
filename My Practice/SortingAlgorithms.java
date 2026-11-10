@@ -35,14 +35,30 @@ class SortingAlgorithms {
 
     //BUBBLE SORT - O(n^2) TIME COMPLEXITY
     //This algo works by repeatedly swapping adjacent elements if they are in the wrong order
+    /**
+     * The middle part of this can seem tricky but its simple enough
+     * 1. We keep track of the number of passes completed on the array while maintaining a variable for checking for swaps (first i loop)
+     * 2. Within another loop we compare the current element against the one next to it, checking if values are unequal (j loop)
+     * - NOTE: Within the J loop we see j < n - i - 1. This statement allows us to loop through the unsorted portion of the array
+     * - We're checking to see if j is less than all other unsorted elements -1 (the -1 is for indexing as we're comparing to the next element constantly)
+     */
     static void bubbleSort(int[] arr){
         //Initializing a variable to hold the length of the array
         int n = arr.length;
+        //Initializing various other variables that will be used throughout the program - not necessary but can help
         int i, j, temp;
+        //Boolean for marking if a swap has been performed
         boolean swapped;
+        //Initial loop for the entire array
+        //I is keeping track of passes completed through the array
         for(i = 0; i < n - 1; i++){
+            //Set swapped to false as on this iteration - we check if element values and placement are unequal then update this
             swapped = false;
+            //Inner loop for comparriosn against 1 item
+            //j < n - i - 1 - means j loops through the unsorted portion, stopping one position early
+            //It stops one position early (i.e. the -1) because the code compares array[j] and array[j + 1]
             for(j = 0; j < n - i - 1; j++){
+                //If the value of the current unsorted part of the array is greater than the next then we swap
                 if(arr[j] > arr[j + 1]){
                     //Swap arr[j] and arr[j + 1]
                     temp = arr[j];
@@ -51,7 +67,7 @@ class SortingAlgorithms {
                     swapped = true;
                 }
             }
-            //If no two elements were swapped by inner loop, then break
+            //If no two elements were swapped by inner loop, then break - array is sorted
             if(!swapped){
                 break;
             }
@@ -109,4 +125,6 @@ class SortingAlgorithms {
             arr[j + 1] = key;
         }
     }
+
+    
 }
