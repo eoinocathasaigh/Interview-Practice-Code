@@ -14,6 +14,16 @@
  * We need to find a combination of items that maximizes the value while keeping the total weight less than or equal to W
  */
 
+//Used for questions relating to linked list operations - like merge sort for a linked list
+class Node {
+    int data;
+    Node next;
+    Node(int x) {
+        data = x;
+        next = null;
+    }
+}
+
 class GeeksStudyQuestions{
 
     //Main method
@@ -132,5 +142,69 @@ class GeeksStudyQuestions{
 
         //Ultimately returning the resulting total value
         return dp[W];
+    }
+
+    //Merge Sort for a linkedList - common enough interview question
+    //Merge sort is perfect for linked list
+    /**
+     * Merge sort works good for Linked List as it does a sequential access for sorting and does not require an auxiliary array or list like we need for sorting an array using Merge Sort.
+     * Split the list: Use two pointers, slow and fast, to find the middle of the linked list. Split the list into two smaller lists.
+     * Sort both halves: Recursively call mergeSort() on each half until the lists are empty or contain only one node.
+     * Merge the sorted halves: Compare the nodes of both sorted lists, link the smaller node first, and append any remaining nodes. Return the head of the merged, sorted list
+     * 
+     */
+
+    static Node split(Node head){
+        Node fast = head;
+        Node slow = head;
+
+        //Move slow pointer 1 step and fast pointer 2 steps until fast reaches the end
+        while(fast.next != null && fast != null){
+            fast = fast.next.next;
+            if(fast != null){
+                slow = slow.next;
+            }
+        }
+
+        Node temp = slow.next;
+        slow.next = null;
+        return temp;
+    }
+
+    //Merging the 2 linked lists
+    static Node merge(Node first, Node second){
+        
+        //If either list is empty return the other
+        if(first == null) return second;
+        if(second == null) return first;
+
+        //Pick the smaller value between the first and second
+        if(first.data < second.data){
+            //Recursively merge the rest of the lists and link the result to the current node
+            frist.next = merge(first.next, second);
+            return first;
+        }
+        else{
+            second.next = merge(first, second.next);
+            return second;
+        }
+    }
+
+    //Main merge sort function
+    static Node mergeSort(Node head){
+        //If list is empty or only has one node then its already sorted
+        if(head.next == null || head == null){
+            return head;
+        }
+
+        //Split the list into 2 values
+        Node second = split(head);
+
+        //Recursively sort each half
+        head = mergeSort(head);
+        second = mergeSort(second);
+
+        //Merge the 2 lists back together
+        return merge(head, second);
     }
 }
