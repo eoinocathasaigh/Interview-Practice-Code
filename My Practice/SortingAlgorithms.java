@@ -125,6 +125,110 @@ class SortingAlgorithms {
             arr[j + 1] = key;
         }
     }
-
     
+    //QUICK SORT - Divide and Conquer Algorithm
+    /**
+     * Operates by selecting an element as a pivot and partitioning the given array around the pivot by placing the pivot in its correct position in the sorted array
+     * STEPS IN ALGORITHM
+     * 1. Select an element from the array - can be random, start, end, median
+     * 2. Partition - rearrange the array around the pivot. After partitioning, all elements smaller than the pivot will be on its left, and all elements greater than the pivot will be on its right.
+     * 3. Recursively Call - apply the same process to the two partitioned sub arrays
+     * 4. Base Case - The recursion stops when there is only one element left in the sub-array, as a single element is already sorted.
+     * 
+     * Picking a pivot
+     * - You could pick either always the first or last element but with this approach it ends up being the worst case if the array is alreadt sorted
+     * - Could also choose randomly - this avoids the problem above
+     * - Median selection - this is the ideal/prefered or selected approach in terms of time complexity as we can find median in linear time and the partition function will always divide the input array into two halves. 
+     * But it takes more time on average as median finding has high constants
+     * 
+     * PARTITIONING EXPLANATION
+     * The partitioning is the most important part of the process and theres 3 methods to do it
+     * Naieve - Here we create copy of the array. First put all smaller elements and then all greater. Finally we copy the temporary array back to original array. This requires O(n) extra space
+     * Lomuto - Keep track of the index of smaller items and continue swapping, this is the one used here for simplicity
+     * Hoares - Fastest of all which traverses the array from both sides, swapping greater element on left side with the smaller on the right while the array isnt partitioned
+     * 
+     * LUMOTO
+     * Works by starting at the leftmost element and keeping track of the smaller or equal elements as i
+     * While traversing if we find a smaller element we can swap the current element with arr[i], otherwise we ignore the current element
+     * 
+     * TIME ANALYSIS
+     * Best Case: (Ω(n log n)), Occurs when the pivot element divides the array into two equal halves.
+     * Average Case (θ(n log n)), On average, the pivot divides the array into two parts, but not necessarily equal.
+     * Worst Case: (O(n²)), Occurs when the smallest or largest element is always chosen as the pivot (e.g., sorted arrays).
+     */
+
+    //Chosing the pivot
+    public static int partitionLumoto(int[] arr, int low, int high){
+        int pivot = arr[high];
+
+        //Index of smaller element and indicates the right position of pivot found so far
+        int i = low - 1;
+
+        for(int j = low; j <= high - 1; j++){
+            if(arr[j] < pivot){
+                i++;
+                swap(arr, i, j);
+            }
+        }
+
+        //Move the pivot after the smaller elements and return its position
+        swap(arr, i + 1, high);
+        return i + 1;
+    }
+
+    //Swap function
+    public static void swap(int[] arr, int i, int j){
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[i] = temp;
+    }
+
+    //QUICKSORT FUNCTION
+    //arr[] -> array to be sorted
+    //low -> Starting index
+    //high -> ending index
+    public static void quickSort(int[] arr){
+        if(low < high){
+            //Partition is the partition return index of pivot
+            int partition = partitionLumoto(arr, low, high);
+
+            //Recursively calling for smaller elements or greater and equals elements
+            quickSort(arr, low, partition - 1);
+            quickSort(arr, partition + 1, high);
+
+        }
+    }
+
+    //ALTERNATIVE - HOARES PARTITION SCHEME
+    /**
+     * Works again by initializing 2 indexes that start at 2 ends
+     * They move together until an inversion is found (left > right)
+     * When inversion is found the values are swapped and the process is repeated
+     */
+
+    public static int partitionHoare(int[] arr, int low, int high){
+        int pivot = arr[low];
+        int i = low - 1, j = high + 1;
+
+        while(true){
+            //Find leftmost element greater than the pivot
+            do{
+                i++;
+            }while (arr[i] < pivot);
+
+            //Find rightmost element smaller than or equal to the pivot
+            do{
+                j--;
+            }while(arr[j] > pivot);
+
+            //If the two pointers met
+            if(i >= j){
+                return j;
+            }
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+
 }
