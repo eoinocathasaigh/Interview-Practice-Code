@@ -207,4 +207,27 @@ class GeeksStudyQuestions{
         //Merge the 2 lists back together
         return merge(head, second);
     }
+
+    //MISC QUESTION - PRINTING THE PYRAMID
+    /**
+     * This is a bit of an easier one where we're tasked with printing a pyramid of stars a certain number of times
+     */
+    public void printPyramid(int n) {
+        // code here
+        //Looping over the number of layers
+        for(int i = 1; i <= n; i++){
+            //Print Spaces - n - i gives us the number of spaces we need to have at the moment
+            //e.g. if i = 1 and n = 5, we know for things to be balanced we need 4 spaces
+            for(int j = 1; j <= n - i; j++){
+                System.out.print(" ");
+            }
+            
+            //Print Stars - (2 * i) - 1 gives us the number of stars to print
+            //Since we need the number to be odd constantly, we multiply the current iteration by 2 and just subtract 1 to print that many
+            for(int j = 1; j <= (2 * i) - 1; j++){
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
 }
