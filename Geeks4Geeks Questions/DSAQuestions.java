@@ -230,4 +230,29 @@ class GeeksStudyQuestions{
             System.out.println();
         }
     }
+
+    //SORTING AN ARRAY
+    /**
+     * This is a simple enough question which asks us to sort an array
+     * The easy way to do this is by using Arrays.sort(....)
+     * Another ways is commented out in the code below
+     */
+    void sortArr(int[] arr) {
+        // code here
+        int i = 0;
+        /*
+        while(i < arr.length){
+            //If element isnt in its correct position, swap it
+            if(arr[arr[i] - 1] != arr[i]){
+                int temp = arr[i];
+                arr[i] = arr[arr[i] - 1];
+                arr[temp - 1] = temp;
+            }
+            else{
+                i++;
+            }
+        }
+        */
+        Arrays.sort(arr);
+    }
 }
