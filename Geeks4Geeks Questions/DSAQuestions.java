@@ -255,4 +255,38 @@ class GeeksStudyQuestions{
         */
         Arrays.sort(arr);
     }
+
+    //REVERSING A LINKED LIST
+    Node reverseList(Node head) {
+        // code here
+        //STACK METHOD
+        Stack<Node> stack = new Stack<>();
+        Node temp = head;
+        
+        //Push all elements onto the stack
+        while(temp != null){
+            stack.push(temp);
+            temp = temp.next;
+        }
+        
+        //Make the last element the new head of the linked list
+        if(!stack.isEmpty()){
+            head = stack.pop();
+            temp = head;
+            
+            //Pop all elements off the list in reversed order
+            while(!stack.isEmpty()){
+                
+                temp.next = stack.pop();
+                
+                temp = temp.next;
+            }
+            
+            //Update the pointer of the last node to be null
+            temp.next = null;
+        }
+        
+        //Returning the new head
+        return head;
+    }
 }
