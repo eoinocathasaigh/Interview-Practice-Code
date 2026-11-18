@@ -378,4 +378,41 @@ class GeeksStudyQuestions{
 
         sortedInsert(stk, top;)
     }
+
+    //BFS OF A GRAPH
+    /**
+     * Pretty standard question, bfs is where we search all nodes on the current level before going any deeper in our search
+     */
+
+    public ArrayList<Integer> bfs(ArrayList<ArrayList<Integer>> adj){
+        //V = Number of vertices
+        int V = adj.size();
+        //Keeping track of how what nodes we've visited
+        boolean[] visited = new boolean[V];
+        //A new arrayList for the results of the search
+        ArrayList<Integer> res = new ArrayList<>();
+
+        //Setting up the source node
+        int src = 0;
+        //A queue for us to keep track of what nodes we need to visit
+        Queue<Integer> q = new LinkedList<>();
+        visited[src] = true;
+        q.add(src);
+
+        while(!q.isEmpty()){
+            int curr = q.poll();
+            //Adding the result to the array list
+            res.add(curr);
+
+            //Visit all the unvisited neighbors of the current node
+            for(int x : adj.get(curr)){
+                if(!visited[x]){
+                    visited[x] = true;
+                    q.add(x);
+                }
+            }
+        }
+
+        return res;
+    }
 }
