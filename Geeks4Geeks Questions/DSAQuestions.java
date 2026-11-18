@@ -327,4 +327,55 @@ class GeeksStudyQuestions{
         //If we dont find a solution
         return false;
     }
+
+    //SORTINT A STACK
+    /**
+     * The idea in this problem is that we have a stack and we're tasked with sorting it in ascending order
+     * Theres technically 2 approaches where we use an auxillerary stack to keep sorted items
+     * Or we can use the approach seen here where we use recursion
+     * The idea with this approach is to:
+     * 1. Remove the top element of the stack
+     * 2. Recursively sort the remaining elements of the stack
+     * 3. Insert the removed element back into the stack in its correct position
+     * 
+     * 2 main methods are seen with this approach
+     * sortStack() removes elements from the stack and recursively sorts the remaining elements
+     * sortedInsert() inserts a removed element into its correct position in the sorted stack
+     * 
+     * STEPS IN THE ALGORITHM
+     * Remove the top element from the stack and store it in x.
+     * Recursively call sortStack() to sort the remaining stack.
+     * Once the remaining stack is sorted, call sortedInsert() to place x at its correct position.
+     * In sortedInsert(), if the stack is empty or its top element is smaller than or equal to x, push x.
+     * Otherwise, temporarily remove the top element and recursively find the correct position for x.
+     * After inserting x, push the temporarily removed elements back.
+     */
+
+    public void sortedInsert(Stack<Integer> stk, int x){
+        //If the stack is empty, or the top element is smaller, push X
+        if(stk.isEmpty() || stk.peek() <= x){
+            stk.push(x);
+
+            return;
+        }
+
+        int top = stk.top;
+
+        //Recursively sort x in ascending order
+        sortedInsert(stk, x);
+        st.push(top);
+    }
+
+    //Sorting the stack recursively
+    public void sortStack(Stack<Integer> stk){
+        if(stk.isEmpty()){
+            return;
+        }
+
+        int top = stk.top();
+        //Recursively sort the remaining stack
+        sortStack(stk);
+
+        sortedInsert(stk, top;)
+    }
 }
