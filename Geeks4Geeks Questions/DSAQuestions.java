@@ -289,4 +289,42 @@ class GeeksStudyQuestions{
         //Returning the new head
         return head;
     }
+
+    //This is a simplistic enough question which asks us to search an array with a target value to determine if a triplet of values within matches the target
+    //It's like the 2 sum problem seen previously
+    /**
+     * The solution for this kind of problem is to use a soted array with the 2 pointer approach 
+     * This makes searching for combinations not only easier but more efficient
+     */
+
+    public void hasTrippletSum(int[] arr, int target){
+        int n = arr.length;
+        Arrays.sort(arr);
+
+        //Fix the first element as arr[i]
+        //NOTE - we use n - 2 for indexing issues and because we're using the 2 pointers 
+        for(int i = 0; i < n - 2; i++){
+            //Initializing the left and right pointers
+            //i + 1 to be ahead of the element we're checking against
+            int l = i + 1; 
+            //n - 1 because of indexing
+            int r = n - 1;
+
+            int targetSum = target - arr[i];
+            while(l < r){
+                if(arr[l] + arr[r] == targetSum){
+                    return true;
+                }
+                if(arr[l] + arr[r] < targetSum){
+                    l++;
+                }
+                if(arr[l] + arr[r] > targetSum){
+                    r--;
+                }
+            }
+        }
+
+        //If we dont find a solution
+        return false;
+    }
 }
