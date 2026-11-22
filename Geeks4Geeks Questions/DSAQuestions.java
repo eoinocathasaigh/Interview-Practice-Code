@@ -144,7 +144,7 @@ class GeeksStudyQuestions{
         return dp[W];
     }
 
-    //Merge Sort for a linkedList - common enough interview question
+    //2. Merge Sort for a linkedList - common enough interview question
     //Merge sort is perfect for linked list
     /**
      * Merge sort works good for Linked List as it does a sequential access for sorting and does not require an auxiliary array or list like we need for sorting an array using Merge Sort.
@@ -208,7 +208,7 @@ class GeeksStudyQuestions{
         return merge(head, second);
     }
 
-    //MISC QUESTION - PRINTING THE PYRAMID
+    //3. MISC QUESTION - PRINTING THE PYRAMID
     /**
      * This is a bit of an easier one where we're tasked with printing a pyramid of stars a certain number of times
      */
@@ -231,7 +231,7 @@ class GeeksStudyQuestions{
         }
     }
 
-    //SORTING AN ARRAY
+    //4. SORTING AN ARRAY
     /**
      * This is a simple enough question which asks us to sort an array
      * The easy way to do this is by using Arrays.sort(....)
@@ -256,7 +256,7 @@ class GeeksStudyQuestions{
         Arrays.sort(arr);
     }
 
-    //REVERSING A LINKED LIST
+    //5. REVERSING A LINKED LIST
     Node reverseList(Node head) {
         // code here
         //STACK METHOD
@@ -290,6 +290,7 @@ class GeeksStudyQuestions{
         return head;
     }
 
+    //6. HAS TRIPLET SUM
     //This is a simplistic enough question which asks us to search an array with a target value to determine if a triplet of values within matches the target
     //It's like the 2 sum problem seen previously
     /**
@@ -328,7 +329,7 @@ class GeeksStudyQuestions{
         return false;
     }
 
-    //SORTINT A STACK
+    //7. SORTINT A STACK
     /**
      * The idea in this problem is that we have a stack and we're tasked with sorting it in ascending order
      * Theres technically 2 approaches where we use an auxillerary stack to keep sorted items
@@ -379,7 +380,7 @@ class GeeksStudyQuestions{
         sortedInsert(stk, top;)
     }
 
-    //BFS OF A GRAPH
+    //8. BFS OF A GRAPH
     /**
      * Pretty standard question, bfs is where we search all nodes on the current level before going any deeper in our search
      */
@@ -414,5 +415,48 @@ class GeeksStudyQuestions{
         }
 
         return res;
+    }
+
+    //9. Valid Parentheses
+    /**
+     * This is a question which tasks us with checking whether the parentheses within a string are balanced or not
+     * In this case the parentheses being balanced is based on the question of whether or not each opened one has the appropriate closed one
+     * Theres 2 main ways to do this
+     * 1. With a stack - push elements from one onto the stack, we then check if the next closing one we find matches the element on the top of the stack
+     *      If it doesnt then we return false, otherwise true. This approach is O(N) in time but O(n) in space as we create another data structure
+     * 2. Without a stack for mutable strings - this approach uses string manipulation to keep track of the elements and parentheses
+     * A variable top is used to track the index of the last unmatched opening bracket. 
+     * Whenever an opening bracket is found, it is placed at the next top position. 
+     * For a closing bracket, we check if it matches the character at top. If it does, we simply decrement top; otherwise, the string is unbalanced. 
+     * In the end, if top is -1, all brackets are matched and the string is balanced.
+     * 
+     * The issue with this approach is that strings are immutable in most Java, JS, Python, C# so the approach wont work in these languages
+     */
+
+    public static boolean isBalanced(String str){
+        Stack<Character> parStack = new Stack<>();
+
+        for(char c : str.toCharArray()){
+            if(c == '(' || c == '[' || c == '{'){
+                parStack.push(c);
+            }
+            else if(c == ')' || c == ']' || c == '}'){
+                //If the stack is empty then we automatically return false
+                if(parStack.isEmpty()){
+                    return false;
+                }
+                char top = parStack.peek();
+                if((c == ')' && top != '(') ||
+                    (c == ']' && top != '[') ||
+                    (c == '}' && top !=- '{')){
+                        return false;
+                }
+
+                //Remove the element from the stack if it matches
+                parStack.pop();
+            }
+        }
+
+        return parStack.isEmpty();
     }
 }
