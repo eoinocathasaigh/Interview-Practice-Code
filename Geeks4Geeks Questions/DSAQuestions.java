@@ -417,7 +417,37 @@ class GeeksStudyQuestions{
         return res;
     }
 
-    //9. Valid Parentheses
+    //9. CYCLE DETECTION IN UNDIRECTED GRAPHS
+    /**
+     * Cycle detection is a key part of graph traversal and the searches
+     * A cycle is a path that starts and ends on the same vertex
+     * Theres 2 main approaches that can be applied to these types of graphs
+     * 
+     * 1. DFS - An algo where we visit a vertex and then explore its adjacent vertices. If we reach a vertex that has already been visited, it may indicate a cycle.
+     * However, in an undirected graph, when DFS moves from u to v, visiting u again from v does not mean that a cycle exists. To handle this, we keep track of the parent of each vertex. The parent is the vertex from which the current vertex was reached during DFS..
+     * If during traversal we encounter a node that is already visited and is not the parent of the current node, it means we’ve found a cycle in the graph.
+     * 
+     * The algorithm for this approach is as follows:
+     *  1. Mark the current index as visited and visit all its adjacent vertices
+     *  2. If the adjacent vertex isnt visited then continue dfs from that and mark the current vertex as its parent
+     *  3. If an adjacent vertex is already visited and isnt the parent of a the current vertex then a cycle exists
+     *  4. If all vertices are explored without finding a cycle then one doesnt exist
+     * 
+     * 2. BFS - Similar to DFS but here we use bfs instead of the recursive approach seen in dfs
+     * In BFS, we also maintain a visited array to mark nodes that have been explored and a parent tracker to remember from which node we reached the current one.
+     * If during traversal we encounter a node that is already visited and is not the parent of the current node, it means we’ve found a cycle in the graph.
+     */
+
+    //9.1 DFS
+    public static boolean dfs(int v, ArrayList<ArrayList<Integer>> adj, boolean[] visited, int parent){
+        //Mark the current node as visited
+        visited[v] = true;
+
+        //If an adjacent vertex isnt visited then recur that vertex
+        //if()
+    }
+
+    //10. Valid Parentheses
     /**
      * This is a question which tasks us with checking whether the parentheses within a string are balanced or not
      * In this case the parentheses being balanced is based on the question of whether or not each opened one has the appropriate closed one
