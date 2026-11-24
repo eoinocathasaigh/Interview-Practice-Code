@@ -35,4 +35,18 @@ public class JavaHashMaps{
             System.out.println("Key: " + key + ", Value: " + map.get(key));
         }
     }
+
+    //Aim is to remove any duplicate elements we find from this array
+    ///Can be easily achieved with a hash map
+    public void removeDuplicates(int[] arr){
+        //Declaring a new hashmap to hold values we've seen
+        HashMap<Integer, Boolean> seen = new HashMap<>();
+
+        for(int i = 0; i < arr.length; i++){
+            //Print the element if its not in the hash map and add it to the hashmap
+            if(seen.get(arr[i]) == null){
+                seen.put(arr[i], true);
+            }
+        }
+    }
 }

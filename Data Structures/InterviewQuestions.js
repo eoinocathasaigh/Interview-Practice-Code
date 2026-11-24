@@ -24,9 +24,9 @@ function pairsWithTargetSum(arr, target) {
 }
 
 // Example usage:
-const arr = [2, 7, 11, 15];
+const pairsArr = [2, 7, 11, 15];
 const target = 9;
-console.log(pairsWithTargetSum(arr, target)); // Output: [[2, 7]]
+console.log(pairsWithTargetSum(pairsArr, target)); // Output: [[2, 7]]
 
 //2. Sliding window pattern - "Maximum Sum Subarray of Size K"
 //This is another classic question which prompts you to find the maximum sum of a subarray of size K
@@ -328,8 +328,8 @@ function findMaxSum(arr) {
   	return findMaxSumRec(arr, n);
 }
 
-let arr = [6, 7, 1, 3, 8, 2, 4];
-console.log(findMaxSum(arr));
+let robbingArr = [6, 7, 1, 3, 8, 2, 4];
+console.log(findMaxSum(robbingArr));
 
 //Expexted Optimized Iterative Approach
 function findMaxSum(arr) {
@@ -356,8 +356,8 @@ function findMaxSum(arr) {
     return res;
 }
 //Driver Code
-let arr = [6, 7, 1, 3, 8, 2, 4];
-console.log(findMaxSum(arr));
+let optimizedRobbingArr = [6, 7, 1, 3, 8, 2, 4];
+console.log(findMaxSum(optimizedRobbingArr));
 
 //9. Monotonic Stack - "Next Greater Element"
 //This problem prompts you to find the next greater element for each element in an array
