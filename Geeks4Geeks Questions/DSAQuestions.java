@@ -443,8 +443,41 @@ class GeeksStudyQuestions{
         //Mark the current node as visited
         visited[v] = true;
 
-        //If an adjacent vertex isnt visited then recur that vertex
-        //if()
+        //Recurr for all vertices adjacent to this vertex
+        for(int neighbor : adj.get(v)){
+            //If an adjacent vertex isnt visited then recur that vertex
+            if(!visited[neighbor]){
+                if(dfs(neighbor, adj, visited, v)){
+                    return true;
+                }
+            }
+
+            //If the adjacent vertex is visited and isnt the parent of the current node then there exists a cycle in the graph
+            else if(neighbor != parent){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isCycle(ArrayList<ArrayList<Integer>> adj){
+        int V = adj.size();
+
+        //Mark all the vertices as not visited
+        boolean[] visited = new boolean[V];
+
+        //Cycle through the graph to detect any cycles
+        for(int i = 0; i < V; i++){
+            if(!visited[i]){
+                //-1 is to represent the starting vertex
+                if(dfs(i, adj, visited, -1)){
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     //10. Valid Parentheses
