@@ -522,4 +522,56 @@ class GeeksStudyQuestions{
 
         return parStack.isEmpty();
     }
+
+    //11. Coin Change
+    /**
+     * Given an integer array coins[ ] representing different denominations of currency and an integer sum
+     * find the number of ways you can make sum by using different combinations from coins[ ]
+     * 
+     * Theres a few different ways to tackle these kinds of problems. Recursion being one, but as always recursion is a costly process. We're always making a decision on whether or not to include the current coin or not
+     * To handle the increased time complexity we can use Memoization 
+     * Memoization - an optimization technique primarily used to enhance the performance of algorithms by storing the results of expensive function calls and reusing them when the same inputs occur again
+     * - Its particularly helpful for scenarios involving repeated computations like recursion where the same calculation will be performed multiple times
+     * 
+     * Theres 3 ways we can tackle it from here, through a top down, bottom up DP and finally a space optimized DP
+     * TOP DOWN DP 
+     * We create a DP table of size n × (sum + 1) to store the results of subproblems based on the number of coins considered and the remaining target sum. This avoids recomputing the same subproblems multiple times.
+     * - Each state count(i, sum) stores the number of ways to form the target sum using the first i coins.
+     * - If the same subproblem occurs again, we directly use its stored result from the DP table.
+     * 
+     * BOTTOM UP DP (TABULATION)
+     * In the memoization approach we solved each subproblem top-down using recursion, but in the tabulation approach we build the solution in a bottom-up manner by filling a DP table iteratively.
+     * We first define the base cases for the DP table.
+     * - dp[0][0] = 1, meaning if we have 0 coins and target sum is 0, there is exactly one way — choose nothing.
+     * - For dp[0][j] where j > 0, the value is 0 because with zero coins we cannot make a positive sum.
+     * - For dp[i][0], the value is 1 for all i because there is only one way to make sum 0 — by not selecting any coin.
+     * - After the base initialization, we fill the table iteratively using the same idea.
+     * 
+     * SPACED OPTIMIZED DP
+     * This is the approach im going to higlight the most prominently
+     * In previous approach of dynamic programming we have derive the relation between states as given below:
+     * - if (sum-coins[i]) is greater than 0, then dp[i][sum] = dp[i][sum-coins[i]] + dp[i+1][sum].
+     * - else dp[i][sum] = dp[i+1][sum].
+     * - If we observe that for calculating current dp[i][sum] state we only need previous row dp[i-1][sum] or current row dp[i][sum-coins[i]]. 
+     * 
+     * There is no need to store all the previous states just one previous state is used to compute result.
+     */
+
+    public static int count(int[] coins, int sum){
+        int n = coins.length;
+
+        //dp[i] will store the possible solutions for value/ combination i
+        int[] dp = new int[sum + 1];
+        //If we have a zero coins/combinations possible then theres only 1 solution
+        dp[0] = 1;
+
+        //Pick all the coins 1 by 1 and update the table[] values after the index greater than or equal to the value of the picked coin
+        for(int i = 0; i < n; i++){
+            for(int j = coins[i]; j <= sum; j++){
+                dp[j] += dp[j - coins[i]];
+            }
+        }
+
+        return dp[sum];
+    }
 }
