@@ -557,6 +557,7 @@ class GeeksStudyQuestions{
      * There is no need to store all the previous states just one previous state is used to compute result.
      */
 
+    //11.1 - SPACE OPTIMIZED DP
     public static int count(int[] coins, int sum){
         int n = coins.length;
 
@@ -573,5 +574,56 @@ class GeeksStudyQuestions{
         }
 
         return dp[sum];
+    }
+
+    //11.2 Top Down DP Memoization
+    public static int countRecur(int[] coins, int n, int sum, int[][] dp){
+        //If the sum is 0 then theres only one solution
+        if(sum == 0){
+            return 1;
+        }
+
+        if(sum < 0 || n == 0){
+            return 0;
+        }
+
+        //If the subproblem is already solved then we just return that
+        if(dp[n - 1][sum] != -1){
+            return dp[n-1][sum];
+        }
+
+        //Count is the sum of the following
+        //(i) including coins [n-1]
+        //(ii) Excluding coins [n-1]
+        return dp[n - 1][sum] = countRecur(coins, n, sum - coins[n - 1], dp) + countRecur(coins, n - 1, sum, dp);
+    }
+
+    public static int countTopDown(int[] coins, int sum){
+        int[][] dp = new int[coins.length][sum + 1];
+        for(int[] row : dp){
+            Arrays.fill(row, -1);
+        }
+        return countRecur(coins, coins.length, sum, dp);
+    }
+
+    //11.3 Bottom Up DP Tabulation
+    public static int countBottomUp(int[] coins, int sum){
+        int n = coins.length;
+
+        int[][] dp = new int[n + 1][sum + 1];
+        dp[0][0] = 1;
+        for(int i = 1; i <= n; i++){
+            for(int j = 0; j <= sum; j++){
+                //Add up the number of ways to make change without using the current coin
+                dp[i][j] += dp[i - 1][j];
+
+                if(j - coins[i - 1] >= 0){
+                    //Add the number of ways to make change using the current coin
+                    dp[i][j] += dp[i][j - coins[i - 1]];
+                }
+            }
+        }
+
+        return dp[n][sum];
     }
 }
